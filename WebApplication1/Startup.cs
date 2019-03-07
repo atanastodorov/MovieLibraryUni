@@ -36,7 +36,7 @@ namespace WebApplication1
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             var connection = @"Server=450974ee-0d32-4960-ac4a-a9f5008fb7ab.sqlserver.sequelizer.com;Database=db450974ee0d324960ac4aa9f5008fb7ab;User ID=khuaibybkvuffovg;Password=nccTxaA7opmUE233f5ahnt2qLHzY2u8DrUP4U2byZYTeYkGG65fqGRb2iUgWHKe3";
-            services.AddDbContext<BloggingContext>
+            services.AddDbContext<FilmContext>
                 (options => options.UseSqlServer(connection));
         }
 

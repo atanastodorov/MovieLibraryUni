@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using EFGetStarted.AspNetCore.NewDb.Models;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 
@@ -10,20 +11,84 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly FilmContext db;
+
+        public HomeController(FilmContext dbContext)
+        {
+            this.db = dbContext;
+        }
+
+        [HttpGet]
+        [Route("")]
         public IActionResult Index()
         {
-            return View();
+            var films = this.db.Films.ToList();
+            return View(films);
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        [Route("/create")]
+        public IActionResult Create()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        [Route("/create")]
+        public IActionResult Create(Film film)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (ModelState.IsValid)
+            {
+                this.db.Films.Add(film);
+                this.db.SaveChanges();
+                return Redirect("/");
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        [Route("/edit/{id}")]
+        public IActionResult Edit(int? id)
+        {
+            var film = this.db.Films.Find(id);
+
+            return View();
+        }
+
+        [HttpPost]
+        [Route("/edit/{id}")]
+        public IActionResult Edit(Film film)
+        {
+            if (ModelState.IsValid)
+            {
+                this.db.Films.Update(film);
+                this.db.SaveChanges();
+
+                return Redirect("/");
+            }
+
+            return View(film);
+
+        }
+
+        [HttpGet]
+        [Route("/delete/{id}")]
+        public IActionResult Delete(int? id)
+        {
+            var film = this.db.Films.Find(id);
+
+            return View();
+        }
+
+        [HttpPost]
+        [Route("/delete/{id}")]
+        public IActionResult Delete(Film film)
+        {
+            this.db.Films.Remove(film);
+            this.db.SaveChanges();
+            return Redirect("/");
+
         }
     }
 }
