@@ -64,18 +64,27 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        [Route("/edit/{id}")]
-        public IActionResult Edit(Film film)
+        [Route("edit/{id}")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditConfirm(int? id, Film filmModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                this.db.Films.Update(film);
-                this.db.SaveChanges();
-
-                return Redirect("/");
+                return View(filmModel);
             }
-
-            return View(film);
+            using ( db )
+            {
+                var taskFromDb = db.Films.Find(filmModel.Id);
+                if (taskFromDb != null)
+                {
+                    taskFromDb.Name = filmModel.Name;
+                    taskFromDb.Genre = filmModel.Genre;
+                    taskFromDb.Director = filmModel.Director;
+                    taskFromDb.Year = filmModel.Year;
+                    db.SaveChanges();
+                }
+            }
+            return Redirect("/");
 
         }
 
