@@ -90,11 +90,20 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [Route("/delete/{id}")]
-        public IActionResult Delete(Film film)
+        public IActionResult Delete(int? id, Film filmModel)
         {
-            this.db.Films.Remove(film);
-            this.db.SaveChanges();
-            return Redirect("/");
+            using (db)
+            {
+                var movie = db.Films.Find(id);
+                if (movie == null)
+                {
+                    return Redirect("/");
+                }
+                db.Films.Remove(movie);
+                db.SaveChanges();
+                return Redirect("/");
+            }
+
 
         }
     }
