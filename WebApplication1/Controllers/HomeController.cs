@@ -48,12 +48,19 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        [Route("/edit/{id}")]
-        public IActionResult Edit(int? id)
+        [Route("edit/{id}")]
+        public ActionResult Edit(int? id)
         {
-            var film = this.db.Films.Find(id);
+            using ( db )
+            {
+                var film = db.Films.Find(id);
+                if (film != null)
+                {
+                    return View(film);
+                }
+            }
+            return Redirect("/");
 
-            return View();
         }
 
         [HttpPost]
