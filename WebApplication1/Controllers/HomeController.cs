@@ -48,27 +48,43 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        [Route("/edit/{id}")]
-        public IActionResult Edit(int? id)
+        [Route("edit/{id}")]
+        public ActionResult Edit(int? id)
         {
-            var film = this.db.Films.Find(id);
+            using ( db )
+            {
+                var film = db.Films.Find(id);
+                if (film != null)
+                {
+                    return View(film);
+                }
+            }
+            return Redirect("/");
 
-            return View();
         }
 
         [HttpPost]
-        [Route("/edit/{id}")]
-        public IActionResult Edit(Film film)
+        [Route("edit/{id}")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditConfirm(int? id, Film filmModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                this.db.Films.Update(film);
-                this.db.SaveChanges();
-
-                return Redirect("/");
+                return View(filmModel);
             }
-
-            return View(film);
+            using ( db )
+            {
+                var taskFromDb = db.Films.Find(filmModel.Id);
+                if (taskFromDb != null)
+                {
+                    taskFromDb.Name = filmModel.Name;
+                    taskFromDb.Genre = filmModel.Genre;
+                    taskFromDb.Director = filmModel.Director;
+                    taskFromDb.Year = filmModel.Year;
+                    db.SaveChanges();
+                }
+            }
+            return Redirect("/");
 
         }
 
@@ -76,18 +92,34 @@ namespace WebApplication1.Controllers
         [Route("/delete/{id}")]
         public IActionResult Delete(int? id)
         {
-            var film = this.db.Films.Find(id);
 
-            return View();
+            using (db)
+            {
+                var film = db.Films.Find(id);
+                if (film == null)
+                {
+                    return Redirect("/");
+                }
+                return View(film);
+            }
         }
 
         [HttpPost]
         [Route("/delete/{id}")]
-        public IActionResult Delete(Film film)
+        public IActionResult Delete(int? id, Film filmModel)
         {
-            this.db.Films.Remove(film);
-            this.db.SaveChanges();
-            return Redirect("/");
+            using (db)
+            {
+                var movie = db.Films.Find(id);
+                if (movie == null)
+                {
+                    return Redirect("/");
+                }
+                db.Films.Remove(movie);
+                db.SaveChanges();
+                return Redirect("/");
+            }
+
 
         }
     }
