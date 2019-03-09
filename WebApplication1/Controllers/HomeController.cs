@@ -76,9 +76,16 @@ namespace WebApplication1.Controllers
         [Route("/delete/{id}")]
         public IActionResult Delete(int? id)
         {
-            var film = this.db.Films.Find(id);
 
-            return View();
+            using (db)
+            {
+                var film = db.Films.Find(id);
+                if (film == null)
+                {
+                    return Redirect("/");
+                }
+                return View(film);
+            }
         }
 
         [HttpPost]
