@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace EFGetStarted.AspNetCore.NewDb.Models
+namespace WebApplication1.Models
 {   
     public class Film
     {

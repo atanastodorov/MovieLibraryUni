@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using EFGetStarted.AspNetCore.NewDb.Models;
-using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace WebApplication1.Controllers
 {

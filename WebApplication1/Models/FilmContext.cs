@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace EFGetStarted.AspNetCore.NewDb.Models
-{
+namespace WebApplication1.Models
+{ 
     public class FilmContext : DbContext
     {
         public FilmContext(DbContextOptions<FilmContext> options)
