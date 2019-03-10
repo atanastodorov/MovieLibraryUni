@@ -82,45 +82,48 @@ th, td {
 }
 
 tr {
-    background-color: #0b8793;
+    background-color: #860404;
 }
 
 th {
-    background-color: #D38312;
-    color: white;
+    background-color: #ffffff;
+    color: black;
+    font-family: arial;
 }
 
+
 .edit {
-    background: #b6fbff;
+    background: #ffffff;
     color: #000000;
 }
 
 .delete {
-    background: #f83600;
-    color: #FFFFFF;
+    background: #ffffff;
+    color: #000000;
 }
 
 .accept {
-    background: #b6fbff;
+    background: #ffffff;
     color: #000000;
 }
 
 .cancel {
-    background: #f83600;
+    background: #860404;
     color: #FFFFFF;
 }
 
 .add-new {
     padding: 15px 0;
     text-decoration: none;
-    color: #000000;
+    color: #FFFFFF;
     width: 200px;
-    background: #b3ffab;
+    background: #860404;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     outline: none;
     margin: 0 auto;
     display: block;
+    font-family:Arial;
 }
 
