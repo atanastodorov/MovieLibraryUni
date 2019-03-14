@@ -61,21 +61,25 @@ table {
     width: 100%;
     overflow: scroll;
     margin: 30px 0;
+    opacity: 0.8;
 }
 
 th, td {
     text-align: left;
     padding: 15px 65px;
+   
 }
 
 tr {
     background-color: #860404;
+
 }
 
 th {
     background-color: #ffffff;
     color: black;
     font-family: arial;
+
 }
 
 
