@@ -16,7 +16,7 @@
 
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <Folder Include="MovieLibraryData\Migrations\" />
   </ItemGroup>
 
 </Project>
